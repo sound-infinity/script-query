@@ -1,0 +1,16 @@
+{
+    "name": "ensemble-lua",
+    "version": "1.0.0",
+    "description": "A interface for roblox exploit apis.",
+    "main": "src/main.lua",
+    "author": "SoundInfinity",
+    "license": "MIT",
+    "scripts": {
+        "build": "./bin/build.cmd"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "luabundler": "^1.2.2",
+        "luamin": "^1.0.4"
+    }
+}

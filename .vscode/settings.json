@@ -1,0 +1,3 @@
+{
+    "robloxLsp.diagnostics.globals": ["hello", "hell", "set_fps_cap", "package"]
+}
