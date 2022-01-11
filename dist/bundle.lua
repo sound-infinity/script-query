@@ -42,8 +42,7 @@ local __bundle_require, __bundle_loaded, __bundle_register, __bundle_modules = (
 	return require, loaded, register, modules
 end)(require)
 __bundle_register("__root", function(require, _LOADED, __bundle_register, __bundle_modules)
-local CardList = require("card-list") ---@type CardList
-_G.WeAreDevs = CardList
+_G.ScriptSearchAPI = require("card-list") ---@type CardList
 
 end)
 __bundle_register("card-list", function(require, _LOADED, __bundle_register, __bundle_modules)
@@ -108,18 +107,15 @@ function Card:new(html)
 	return this
 end
 
--- game:HttpGet("https://wearedevs.net" .. CardList:search("Dex").downloadUrl)
--- <a class="btnDownload round" href="https://cdn.wearedevs.net/scripts/Dex Explorer V2.txt" rel="nofollow" target="_blank" onclick="ViewRaw()">View Raw Text</a>
 function Card:GetCodeAsync(callback, onerror)
 	coroutine.wrap(function(callback)
 		local response = game:HttpGet(self.downloadUrl:gsub(" ", "%%20"))
-		local absoluteUrl = response:match('.-btnDownload.-href.-"(.-)"'):gsub(" ", "%%20")
+		local absoluteUrl = response:match(SELECTOR.BUTTON_DOWNLOADURL):gsub(" ", "%%20")
 		if type(absoluteUrl) ~= "string" then
 			onerror("absoluteUrl not a string", absoluteUrl)
-			return
+		else
+			callback(game:HttpGet(absoluteUrl))
 		end
-		local contents = game:HttpGet(absoluteUrl)
-		callback(contents)
 	end)(callback)
 end
 
@@ -133,6 +129,7 @@ return {
 	CARD_TITLE = ".-release%-title.->(.-)</",
 	CARD_DESCRIPTION = ".-release%-description.->.-<p>(.-)</",
 	CARD_DOWNLOADURL = '.-download%-button.-href.-"(.-)"',
+	BUTTON_DOWNLOADURL = '.-btnDownload.-href.-"(.-)"',
 }
 
 end)
