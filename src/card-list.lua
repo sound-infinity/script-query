@@ -7,13 +7,6 @@ local insert = table.insert
 ---@field public collection table<number, Card>
 local CardList = { collection = {}, _initialized = false }
 
--- local htmlCardList = game:HttpGet("https://wearedevs.net/scripts"):match(SELECTOR.CARDLIST)
-
--- for htmlCard in htmlCardList:gmatch(SELECTOR.CARD) do
--- 	local _card = Card:new(htmlCard)
--- 	print(_card.title)
--- end
-
 function CardList:fetch()
 	self._initialized = true
 	self.collection = {}
